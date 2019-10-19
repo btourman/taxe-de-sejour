@@ -1,0 +1,25 @@
+{
+  "name": "taxe-de-sejour",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "repository": "git@github.com:btourman/taxe-de-sejour.git",
+  "author": "Benjamin Tourman <tourman.benjamin@gmail.com>",
+  "scripts": {
+    "start": "nodemon src/index.js",
+    "build": "tar czvf auth-service.tgz src node_modules ecosystem.json package.json email"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "ajv": "^6.10.2",
+    "body-parser": "^1.19.0",
+    "date-fns": "^2.4.1",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "wretch": "^1.5.4",
+    "xml2js": "^0.4.22"
+  },
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "nodemon": "^1.14.11"
+  }
+}

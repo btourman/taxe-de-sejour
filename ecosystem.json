@@ -1,0 +1,19 @@
+{
+  "apps": [
+    {
+      "name": "taxe-de-sejour",
+      "script": "./src/index.js",
+      "env": {
+        "watch": true,
+        "PORT": 7500,
+        "NODE_ENV": "development",
+        "DOMAIN": "localhost:3000"
+      },
+      "env_production": {
+        "watch": false,
+        "NODE_ENV": "production",
+        "DOMAIN": "taxe-de-sejour.tatou.co"
+      }
+    }
+  ]
+}
