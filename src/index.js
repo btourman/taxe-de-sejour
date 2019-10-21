@@ -4,6 +4,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const { getByCityName } = require('./insee')
 const { getPhases, calculate } = require('./touristTax')
+const fs = require('fs')
 
 const CalculateValidator = require('./CalculateValidator').default
 const { validate } = require('./Validator')
