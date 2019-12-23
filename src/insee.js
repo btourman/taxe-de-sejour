@@ -1,27 +1,21 @@
 global.fetch = require("node-fetch")
 const wretch = require('wretch')
+const { sortBy, take } = require('lodash')
 
-const transformResultToJson = (result) => {
-    const [city, rest] = result.split('(')
-    const [zipCode, insee] = rest.split(')')[0].split(' - ')
+const transformResultToJson = ({ fields }) => {
     return {
-        city: city,
-        zipCode: zipCode.split('CP ')[1],
-        insee: insee.split('INSEE ')[1]
+        city: fields.nom_com,
+        zipCode: fields.code_postal,
+        insee: fields.insee_com
     }
 }
 
 const getByCityName = (city) => {
-    return wretch('http://taxesejour.impots.gouv.fr/DTS_WEB/FR/index.awp')
-        .formUrl({
-            WD_ACTION_: 'AJAXEXECUTE',
-            EXECUTEPROC: 'GlobalesDTS.SaisieAssistée',
-            WD_CONTEXTE_: 'A4',
-            PA1: city
-        })
-        .post()
-        .text(text => {
-            return text.split('\r\n').map(t => transformResultToJson(t))
+    return wretch(`https://data.opendatasoft.com/api/records/1.0/search/?dataset=code-postal-code-insee-2015%40public&q=${city}&rows=50&facet=insee_com&facet=nom_reg&facet=code_postal&facet=nom_com`)
+        .get()
+        .json(json => {
+            console.log(json)
+            return take(sortBy(json.records.map(t => transformResultToJson(t)), 'city'), 10)
         })
 }
 
